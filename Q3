@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+
+class Position {
+protected:
+    float x, y, z;
+
+public:
+    Position(float xVal = 0, float yVal = 0, float zVal = 0)
+        : x(xVal), y(yVal), z(zVal) {}
+
+    void setPosition(float xVal, float yVal, float zVal) {
+        x = xVal;
+        y = yVal;
+        z = zVal;
+    }
+
+    void displayPosition() {
+        cout << "Position: (" << x << ", " << y << ", " << z << ")" << endl;
+    }
+};
+
+class Health {
+protected:
+    int health;
+
+public:
+    Health(int h = 100) : health(h) {}
+
+    void setHealth(int h) {
+        health = h;
+    }
+
+    void displayHealth() {
+        cout << "Health: " << health << endl;
+    }
+};
+
+class Character : public Position, public Health {
+    string name;
+
+public:
+    Character(string n, float xVal, float yVal, float zVal, int h)
+        : Position(xVal, yVal, zVal), Health(h), name(n) {}
+
+    void display() {
+        cout << "Character: " << name << endl;
+        displayPosition();
+        displayHealth();
+    }
+};
+
+int main() {
+    Character hero("Arslan", 10.5, 20.0, 5.5, 85);
+
+    hero.display();
+
+    return 0;
+}
