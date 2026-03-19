@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+
+class Device {
+public:
+    std::string brand;
+    std::string model;
+    Device(const std::string& b, const std::string& m) : brand(b), model(m) {}
+    void showDevice() { std::cout << brand << " " << model << std::endl; }
+};
+
+class Smartphone : virtual public Device {
+public:
+    int simSlots;
+    Smartphone(const std::string& b, const std::string& m, int s) : Device(b, m), simSlots(s) {}
+    void showSmartphone() { std::cout << "SIM slots: " << simSlots << std::endl; }
+};
+
+class Tablet : virtual public Device {
+public:
+    bool stylusSupport;
+    Tablet(const std::string& b, const std::string& m, bool stylus) : Device(b, m), stylusSupport(stylus) {}
+    void showTablet() { std::cout << "Stylus support: " << (stylusSupport ? "Yes" : "No") << std::endl; }
+};
+
+class HybridDevice : public Smartphone, public Tablet {
+public:
+    HybridDevice(const std::string& b, const std::string& m, int s, bool stylus)
+        : Device(b, m), Smartphone(b, m, s), Tablet(b, m, stylus) {}
+    void showHybrid() {
+        showDevice();
+        showSmartphone();
+        showTablet();
+    }
+};
+
+int main() {
+    HybridDevice hybrid("TechCorp", "X-Prime", 2, true);
+    hybrid.showHybrid();
+}
