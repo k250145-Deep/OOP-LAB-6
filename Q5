@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+
+class Vehicle {
+protected:
+    string make;
+    string model;
+    int year;
+
+public:
+    Vehicle(string mk, string mdl, int yr)
+        : make(mk), model(mdl), year(yr) {}
+
+    virtual void display() {
+        cout << "Make: " << make << endl;
+        cout << "Model: " << model << endl;
+        cout << "Year: " << year << endl;
+    }
+};
+
+class Car : public Vehicle {
+protected:
+    int numberOfDoors;
+    double fuelEfficiency;
+
+public:
+    Car(string mk, string mdl, int yr, int doors, double fuelEff)
+        : Vehicle(mk, mdl, yr), numberOfDoors(doors), fuelEfficiency(fuelEff) {}
+
+    void display() override {
+        Vehicle::display();
+        cout << "Doors: " << numberOfDoors << endl;
+        cout << "Fuel Efficiency: " << fuelEfficiency << " km/l" << endl;
+    }
+};
+
+class ElectricCar : public Car {
+    double batteryLife;
+
+public:
+    ElectricCar(string mk, string mdl, int yr, int doors, double fuelEff, double battery)
+        : Car(mk, mdl, yr, doors, fuelEff), batteryLife(battery) {}
+
+    void display() override {
+        cout << "Electric Car Details:\n";
+        Car::display();
+        cout << "Battery Life: " << batteryLife << " km per charge" << endl;
+    }
+};
+
+int main() {
+    ElectricCar ec("Tesla", "Model 3", 2023, 4, 0, 450);
+
+    ec.display();
+
+    return 0;
+}
